@@ -1,0 +1,7 @@
+instances:
+  required: True
+  type: list
+  schema:
+    type: list
+    schema:
+      type: number

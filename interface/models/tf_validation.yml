@@ -1,0 +1,27 @@
+instances:
+  required: True
+  type: list
+  anyof_schema:
+    - type: number
+    - type: string
+    - type: list
+      anyof_schema:
+        - type: number
+        - type: list
+          anyof_schema:
+            - type: number
+            - type: list
+              schema:
+                type: number
+    - type: dict
+      allow_unknown: False
+      schema:
+        b64:
+          type: string
+    - type: dict
+      allow_unknown: False
+      schema:
+        tag:
+          type: string
+        image:
+          type: string
