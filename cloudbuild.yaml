@@ -2,7 +2,7 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     waitFor: ['-']
     args: [
-      'functions', 'deploy', 'interface',
+      'functions', 'deploy', 'interface_opensource',
       '--trigger-http',
       '--allow-unauthenticated',
       '--entry-point', 'interface',
@@ -14,19 +14,19 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     waitFor: ['-']
     args: [
-      'functions', 'deploy', 'identity_document_verification_extract_data',
-      '--trigger-topic', 'identity_document_verification',
+      'functions', 'deploy', 'document_preprocessing_opensource',
+      '--trigger-topic', 'document_preprocessing_opensource',
       '--entry-point', 'detect_text',
       '--runtime', 'python37',
       '--region', 'europe-west1',
-      '--source', 'identity_document_verification',
+      '--source', 'document_preprocessing',
       '--update-labels', 'project=models,environment=production'
     ]
   - name: 'gcr.io/cloud-builders/gcloud'
     waitFor: ['-']
     args: [
-      'functions', 'deploy', 'google_ocr',
-      '--trigger-topic', 'ocr_google',
+      'functions', 'deploy', 'google_ocr_opensource',
+      '--trigger-topic', 'google_ocr_opensource',
       '--entry-point', 'detect_text',
       '--runtime', 'python37',
       '--region', 'europe-west1',
@@ -37,46 +37,11 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     waitFor: ['-']
     args: [
-      'functions', 'deploy', 'classification_diags',
-      '--trigger-topic', 'classification_diags',
-      '--entry-point', 'detect_text',
-      '--runtime', 'python37',
-      '--region', 'europe-west1',
-      '--source', 'classification_diags',
-      '--update-labels', 'project=models,environment=production'
-    ]
-  - name: 'gcr.io/cloud-builders/gcloud'
-    waitFor: ['-']
-    args: [
-      'functions', 'deploy', 'identity_document_verification_post_processing',
-      '--trigger-topic', 'identity_document_verification_post_processing',
+      'functions', 'deploy', 'document_postprocessing_opensource',
+      '--trigger-topic', 'document_postprocessing_opensource',
       '--entry-point', 'extract_data',
       '--runtime', 'python37',
       '--region', 'europe-west1',
-      '--source', 'identity_document_verification_post_processing',
-      '--update-labels', 'project=models,environment=production'
-    ]
-
-  - name: 'gcr.io/cloud-builders/gcloud'
-    waitFor: ['-']
-    args: [
-      'functions', 'deploy', 'lead_scoring',
-      '--trigger-topic', 'lead_scoring',
-      '--entry-point', 'main',
-      '--runtime', 'python37',
-      '--region', 'europe-west1',
-      '--source', 'lead_scoring',
-      '--update-labels', 'project=models,environment=staging'
-    ]
-
-  - name: 'gcr.io/cloud-builders/gcloud'
-    waitFor: ['-']
-    args: [
-      'functions', 'deploy', 'update_bdd_external_classified_ads',
-      '--trigger-topic', 'update_bdd_externalclassifiedads',
-      '--entry-point', 'update_bdd',
-      '--runtime', 'python37',
-      '--region', 'europe-west1',
-      '--source', 'update_bdd_external_classified_ads',
+      '--source', 'document_preprocessing',
       '--update-labels', 'project=models,environment=production'
     ]
