@@ -26,7 +26,7 @@ steps:
     waitFor: ['-']
     args: [
       'functions', 'deploy', 'google_ocr_opensource',
-      '--trigger-topic', 'google_ocr_opensource',
+      '--trigger-topic', 'ocr_google_opensource',
       '--entry-point', 'detect_text',
       '--runtime', 'python37',
       '--region', 'europe-west1',
