@@ -17,7 +17,7 @@ def extract_data(event, context):
     pages_count = message["pages_count"]
     for page_number in range(1, pages_count+1):
         page_text = message["page"+str(page_number)]
-        if "first_name" in page_test:
+        if "first_name" in page_text:
             my_dict["has_first_name"] = 1
             break
 
