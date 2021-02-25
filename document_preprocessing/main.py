@@ -28,8 +28,8 @@ def get_extension(response):
 
     return file_extension
 
-def url_to_storage(urls, doc_id):
-    message_out = {"uri_list": [], "topic_name": getenv("TOPIC_DOCUMENT_POSTPROCESSING"), "doc_id": doc_id}
+def url_to_storage(urls, doc_id, webhook_url):
+    message_out = {"uri_list": [], "topic_name": getenv("TOPIC_DOCUMENT_POSTPROCESSING"), "doc_id": doc_id, "webhook_url": webhook_url}
     for url in urls:
         response = get(url, allow_redirects=True)
 
@@ -62,5 +62,6 @@ def detect_text(event, context):
 
     # custom model : one prediction at a time
     model_params = message_in["instances"][0]
-    url_to_storage(model_params["urls"], model_params["doc_id"])
+    webhook_url = message_in["webhook_url"]
+    url_to_storage(model_params["urls"], model_params["doc_id"], webhook_url)
 
