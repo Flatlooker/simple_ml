@@ -21,9 +21,9 @@ def detect_text(event, context):
     uri_list = message_in["uri_list"]
     uri_count = len(uri_list)
     try:
-        message_out = {"pages_count": uri_count, "doc_id": message_in["doc_id"]}
+        message_out = {"pages_count": uri_count, "doc_id": message_in["doc_id"], "webhook_url": message_in["webhook_url"]}
     except:
-        message_out = {"pages_count": uri_count}
+        message_out = {"pages_count": uri_count, "webhook_url": message_in["webhook_url"]}
 
     for i in range(uri_count):
         uri = uri_list[i]
