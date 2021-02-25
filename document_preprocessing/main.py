@@ -62,6 +62,5 @@ def detect_text(event, context):
 
     # custom model : one prediction at a time
     model_params = message_in["instances"][0]
-    model_to_call = message_in["model"]["name"]
     url_to_storage(model_params["urls"], model_params["doc_id"])
 
