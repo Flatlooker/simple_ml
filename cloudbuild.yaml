@@ -42,6 +42,6 @@ steps:
       '--entry-point', 'extract_data',
       '--runtime', 'python37',
       '--region', 'europe-west1',
-      '--source', 'document_preprocessing',
+      '--source', 'document_postprocessing',
       '--update-labels', 'project=models,environment=production'
     ]
