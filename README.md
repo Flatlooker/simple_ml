@@ -1,6 +1,14 @@
-# Machine Learning Production Pipeline for Communicating with Another Platform
+# Machine Learning in Production: a Single Entry Point for Every Model
 
-These Google Cloud functions allow to interact with all your datascience models.
+This project uses Google Cloud Functions and Google Cloud AI to push models in production.
+
+One entry for every request: **interface**.
+
+2 possible pipelines:
+- custom model hosted on Google Cloud AI, will do the equivalent of a model.predict() on scikit-learn
+- more complex pipeline with preprocessing and postprocessing; the example given allows to detect a particular sequence in an image given with the use of Google Vision and use a succession of three Google Functions: document_preprocessing, google_ocr and document_postprocessing.
+
+Responses are sent to a chosen webhook url.
 
 ## Installation
 
@@ -10,29 +18,26 @@ These Google Cloud functions allow to interact with all your datascience models.
 ### Custom Model
 
 ```bash
-curl
+curl 
 ```
 
 ### OCR
 
 ```bash
-curl
+curl -X POST -H 'Content-Type: application/json' -H 'Authorization: Bearer aaaa0000' --data '{"instances": [{"urls": ["https://my_image.jpg"], "doc_id": 123}]}' 'https://europe-west1-project-name.cloudfunctions.net/interface_opensource?model=document_preprocessing_opensource&url=my_url'
 ```
 
-## Content Details
-
-### Interface Function
-
-Its role is to ensure the communication between the platform and the different machine learning models.
-
-### Case 1: Custom Model
-1) Deploy the model to Google AI Platform.
-
-The interface function will ask the model.
-
-
-### Example 2: Model with pre and post processing
-Google OCR.
+Response example:
+```JSON
+{
+  "predictions": [
+    {
+      "has_first_name": 0,
+      "doc_id": 123
+    }
+  ]
+}
+```
 
 ## License
 
