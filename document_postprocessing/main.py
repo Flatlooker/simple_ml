@@ -1,5 +1,5 @@
 from base64 import b64decode
-from re import match, compile, sub
+from re import match, compile, sub, findall
 from requests import post
 from os import getenv
 from google.cloud import storage
@@ -12,14 +12,15 @@ def extract_data(event, context):
     message = r.sub(r"\\n", message)
     message = loads(message)
 
-    my_dict = {"has_first_name": 0}
+    my_dict = {"list_of_emails": []}
+
+    # find email
+    r = re.compile(r'[A-Za-z0-9_%+-.]+@[A-Za-z0-9-.]+\.[A-Za-z]{2,}')
 
     pages_count = message["pages_count"]
     for page_number in range(1, pages_count+1):
         page_text = message["page"+str(page_number)]
-        if "first_name" in page_text:
-            my_dict["has_first_name"] = 1
-            break
+        my_dict["list_of_emails"] += r.findall(page_text)
 
     my_dict["doc_id"] = message["doc_id"]
     webhook_url = message["webhook_url"]
