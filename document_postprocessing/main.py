@@ -15,7 +15,7 @@ def extract_data(event, context):
     my_dict = {"list_of_emails": []}
 
     # find email
-    r = re.compile(r'[A-Za-z0-9_%+-.]+@[A-Za-z0-9-.]+\.[A-Za-z]{2,}')
+    r = compile(r'[A-Za-z0-9_%+-.]+@[A-Za-z0-9-.]+\.[A-Za-z]{2,}')
 
     pages_count = message["pages_count"]
     for page_number in range(1, pages_count+1):
