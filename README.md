@@ -1,4 +1,6 @@
-# Simple ML Deployment Framework
+# Simple ML
+
+> A simple ML deployment framework based on Google Cloud
 
 ## Purpose and Philosophy
 
